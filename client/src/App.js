@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 
 const initStateStr = '';
 const initStateArr = [];
+const initStateBool = false;
 
 const App = () => {
   const [task, setTask] = useState(initStateStr);
   const [list, setList] = useState(initStateArr);
+  const [editMode, setEditMode] = useState(initStateBool);
 
   const onChange = (e) => {
     const value = e.target.value;
@@ -20,6 +22,15 @@ const App = () => {
     setTask(initStateStr);
   }
 
+  const delTask = delId => {
+    const filteredArr = list.filter(({id}) => id !== delId);
+    setList(filteredArr);
+  }
+
+  const onEdit = (task, id) => {
+    const editedArr = list.map(() => {})
+  }
+
   return (
     <div className="container mt-5">
       <h1 className="text-center">CRUD React</h1>
@@ -31,8 +42,8 @@ const App = () => {
             {list.map(({id, task}) => (
             <li key={id} className="list-group-item">
               <span className="lead">{task}</span>
-              <button className="btn btn-danger float-right">Delete</button>
-              <button className="btn btn-warning float-right mr-1">Edit</button>
+              <button onClick={() => delTask(id)} className="btn btn-danger float-right">Delete</button>
+              <button onClick={() => onEdit(task, id)} className="btn btn-warning float-right mr-1">Edit</button>
             </li>
             ))}
           </ul>
